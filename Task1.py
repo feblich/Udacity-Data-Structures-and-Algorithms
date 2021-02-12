@@ -18,3 +18,8 @@ How many different telephone numbers are there in the records?
 Print a message:
 "There are <count> different telephone numbers in the records."
 """
+def getUniqueNums(texts, calls):
+    allPhones = [*[num[0] for num in texts], *[num[1] for num in texts], *[num[0] for num in calls], *[num[1] for num in calls]]
+    return len(set(allPhones))
+
+print('There are {} different telephone numbers in the records.'.format(getUniqueNums(texts, calls)))
