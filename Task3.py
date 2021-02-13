@@ -33,6 +33,7 @@ Print the answer as part of a message:
  <list of codes>
 The list of codes should be print out one per line in lexicographic order with no duplicates.
 
+
 Part B: What percentage of calls from fixed lines in Bangalore are made
 to fixed lines also in Bangalore? In other words, of all the calls made
 from a number starting with "(080)", what percentage of these calls
@@ -43,3 +44,47 @@ Print the answer as a part of a message::
 to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
+
+# part A
+# get all numbers called by Bangalore
+def getNumbersCalledByBangalore():
+    # create a dictionary keyed on calling numbers and valued on receiving numbers
+    from collections import defaultdict
+    d = defaultdict(list)
+    for record in calls:
+        d[record[0]].append(record[1])
+
+    # extract numbers called by Bangalore
+    d = dict(d)
+    numbersCalledByBangalore = []
+    for k, v in d.items():
+        if k.startswith('(080)'):
+            numbersCalledByBangalore.append(v)
+
+    # flatten the list
+    return [number for listOfNums in numbersCalledByBangalore for number in listOfNums]
+
+numbersCalledByBangalore = getNumbersCalledByBangalore()
+
+# get codes of numbers called by Bangalore:
+def areaCodeExtractor(num):
+    # check fixed number:
+    if num.startswith("("):
+        areaCode = num[num.find("("):num.find(")") + 1]
+
+    # check mobile number:
+    if num.startswith(("7", "8", "9")) and ' ' in num:
+        areaCode = num[0:5]
+
+    # check telemarketers number:
+    if all(x not in num for x in ["(", ")", " "]) and num.startswith('140'):
+        areaCode = num[0:3]
+
+    return areaCode
+
+
+# extract area codes:
+areaCodes = []
+for num in numbersCalledByBangalore:
+    areaCodes.append(areaCodeExtractor(num))
+
