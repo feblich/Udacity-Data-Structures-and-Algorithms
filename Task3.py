@@ -47,7 +47,7 @@ The percentage should have 2 decimal digits
 
 # part A
 # get all numbers called by Bangalore
-def getNumbersCalledByBangalore():
+def getNumbersCalledByBangalore(calls):
     # create a dictionary keyed on calling numbers and valued on receiving numbers
     from collections import defaultdict
     d = defaultdict(list)
@@ -64,7 +64,7 @@ def getNumbersCalledByBangalore():
     # flatten the list
     return [number for listOfNums in numbersCalledByBangalore for number in listOfNums]
 
-numbersCalledByBangalore = getNumbersCalledByBangalore()
+numbersCalledByBangalore = getNumbersCalledByBangalore(calls)
 
 
 # get codes of numbers called by Bangalore:
@@ -83,14 +83,13 @@ def areaCodeExtractor(num):
 
     return areaCode
 
-
 # extract area codes:
 areaCodes = []
 for num in numbersCalledByBangalore:
     areaCodes.append(areaCodeExtractor(num))
-
 areaCodes = set(areaCodes)
 print('The numbers called by people in Bangalore have codes: \n {}'.format(areaCodes))
+
 
 # part B
 areaCodes = []
