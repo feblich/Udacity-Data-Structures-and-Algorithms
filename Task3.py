@@ -66,6 +66,7 @@ def getNumbersCalledByBangalore():
 
 numbersCalledByBangalore = getNumbersCalledByBangalore()
 
+
 # get codes of numbers called by Bangalore:
 def areaCodeExtractor(num):
     # check fixed number:
@@ -89,5 +90,14 @@ for num in numbersCalledByBangalore:
     areaCodes.append(areaCodeExtractor(num))
 
 areaCodes = set(areaCodes)
-
 print('The numbers called by people in Bangalore have codes: \n {}'.format(areaCodes))
+
+# part B
+areaCodes = []
+for num in numbersCalledByBangalore:
+    areaCodes.append(areaCodeExtractor(num))
+
+percentageAsked = round((areaCodes.count('(080)') / len(areaCodes)) * 100, 2)
+
+print('{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'\
+      .format(percentageAsked))
