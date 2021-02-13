@@ -75,7 +75,7 @@ def areaCodeExtractor(num):
 
     # check mobile number:
     if num.startswith(("7", "8", "9")) and ' ' in num:
-        areaCode = num[0:5]
+        areaCode = num[0:4]
 
     # check telemarketers number:
     if all(x not in num for x in ["(", ")", " "]) and num.startswith('140'):
