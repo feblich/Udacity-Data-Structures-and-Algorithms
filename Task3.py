@@ -88,3 +88,6 @@ areaCodes = []
 for num in numbersCalledByBangalore:
     areaCodes.append(areaCodeExtractor(num))
 
+areaCodes = set(areaCodes)
+
+print('The numbers called by people in Bangalore have codes: \n {}'.format(areaCodes))
