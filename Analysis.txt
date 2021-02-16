@@ -1,0 +1,33 @@
+Run time analysis is performed according to the material presented in the Big O Notation and 
+Worst Case and Approximation lectures. Python Wiki for time complexity analysis is used 
+(https://wiki.python.org/moin/TimeComplexity).
+
+## Task0
+This task involves simple array access to list object. Regardless of the size of the list, access to the same 
+number of elements should take the same time, therefore there is no relationship between the size of the input
+and the number of operations, run time is O(1).
+
+## Task1
+There are 4 for loops (not nested) to extract numbers from calls and texts (which are list of lists).
+Number of operations would linearly increase with input size for each of the non-nestes for loops.
+There is a final set operation on the final flat list. The set operation should have a time complexity of O(1)
+and the for loops each take runs in O(n) and because the for loops are not nested, the whole algorithm takes runs
+in O(n)
+
+## Task2
+In this task, I used a defaultdict and set items in a for loop for each record in calls. According to the Python
+time complexity Wiki page set item operation for dict objects take O(1) for average case and O(n) for amortized
+worst case. I choose to take the average case and for a single loop the time complexity would be O(n). There is also
+a final max operation that takes runs in O(n), therefore the overall run time is 2*O(n) which can be simplified to
+O(n)
+
+## Task3
+The getNumbersCalledByBangalore(calls) function has 2 non-nested for loops involving operations with
+O(1) run time. Therefore the overall run time for each for loop is O(n). The sorting operation at the end before
+the print statement, takes runs in O(n*log(n)) that when added to previous O(n) operations can be simplified to
+have O(n*lo(n)) run time.
+
+## Task4
+The getTelemarketers(calls, texts) function contains many set and list operations that take O(1) in run time. There
+are also non-nested for loops with O(n) run time and a final sort operation that takes runs in O(n*log(n)) so the 
+overall algorithms takes runs in O(n*log(n)).
