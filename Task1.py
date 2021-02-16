@@ -22,4 +22,5 @@ def getUniqueNums(texts, calls):
     allPhones = [*[num[0] for num in texts], *[num[1] for num in texts], *[num[0] for num in calls], *[num[1] for num in calls]]
     return len(set(allPhones))
 
-print('There are {} different telephone numbers in the records.'.format(getUniqueNums(texts, calls)))
+if __name__ == "__main__":
+    print('There are {} different telephone numbers in the records.'.format(getUniqueNums(texts, calls)))

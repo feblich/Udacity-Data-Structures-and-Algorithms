@@ -25,3 +25,28 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
+def getTelemarketers(calls, texts):
+    callers = list(set([record[0] for record in calls]))
+    callReceivers = list(set([record[1] for record in calls]))
+    texters = list(set([record[0] for record in texts]))
+    textReceivers = list(set([record[1] for record in texts]))
+
+    # create boolean vectors
+    idx0 = [caller in callReceivers for caller in callers]
+    idx1 = [caller in texters for caller in callers]
+    idx2 = [caller in textReceivers for caller in callers]
+    teleMarketers = []
+    for i in range(len(callers)):
+        if not any([idx0[i], idx1[i], idx2[i]]):
+            teleMarketers.append(callers[i])
+
+    return teleMarketers
+
+
+if __name__ == '__main__':
+    teleMarketers = getTelemarketers(calls, texts)
+    teleMarketers.sort()
+
+    print('\nThese numbers could be telemarketers: ')
+    for t in teleMarketers:
+        print(t)

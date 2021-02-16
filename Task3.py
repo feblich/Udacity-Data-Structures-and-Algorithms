@@ -45,7 +45,6 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
-# part A
 # get all numbers called by Bangalore
 def getNumbersCalledByBangalore(calls):
     # create a dictionary keyed on calling numbers and valued on receiving numbers
@@ -64,8 +63,6 @@ def getNumbersCalledByBangalore(calls):
     # flatten the list
     return [number for listOfNums in numbersCalledByBangalore for number in listOfNums]
 
-numbersCalledByBangalore = getNumbersCalledByBangalore(calls)
-
 
 # get codes of numbers called by Bangalore:
 def areaCodeExtractor(num):
@@ -83,20 +80,28 @@ def areaCodeExtractor(num):
 
     return areaCode
 
-# extract area codes:
-areaCodes = []
-for num in numbersCalledByBangalore:
-    areaCodes.append(areaCodeExtractor(num))
-areaCodes = set(areaCodes)
-print('The numbers called by people in Bangalore have codes: \n {}'.format(areaCodes))
+
+if __name__ == '__main__':
+
+    # part A
+    numbersCalledByBangalore = getNumbersCalledByBangalore(calls)
+    # extract area codes:
+    areaCodes = []
+    for num in numbersCalledByBangalore:
+        areaCodes.append(areaCodeExtractor(num))
+    areaCodes = list(set(areaCodes))
+    areaCodes.sort()
+    print('\nThe numbers called by people in Bangalore have codes: ')
+    for ar in areaCodes:
+        print(ar)
 
 
-# part B
-areaCodes = []
-for num in numbersCalledByBangalore:
-    areaCodes.append(areaCodeExtractor(num))
+    # part B
+    areaCodes = []
+    for num in numbersCalledByBangalore:
+        areaCodes.append(areaCodeExtractor(num))
 
-percentageAsked = round((areaCodes.count('(080)') / len(areaCodes)) * 100, 2)
+    percentageAsked = round((areaCodes.count('(080)') / len(areaCodes)) * 100, 2)
 
-print('{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'\
-      .format(percentageAsked))
+    print('{} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.'\
+          .format(percentageAsked))
