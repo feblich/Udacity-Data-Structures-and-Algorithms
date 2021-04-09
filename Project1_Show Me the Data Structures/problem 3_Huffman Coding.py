@@ -12,9 +12,19 @@ class Node(object):
 
     def __init__(self, left_child=None, left_freq=0, right_child=None, right_freq=0):
 
+        # from collections import defaultdict
         self.left_child = left_child
         self.right_child = right_child
         self.value = left_freq + right_freq
+        # self.letter_code = defaultdict(list)
+
+    # def update_letter_code(self):
+    #     if type(self.left_child[0]) is str:
+    #         self.letter_code.append(0)
+    #
+    #     while node.left_child:
+    #         left_child = node.left_child
+
 
 
 def huffman_encoding(data):
@@ -52,7 +62,9 @@ if __name__ == "__main__":
     # el1 = Element(two_mins[0][0], two_mins[0][1])
     # el2 = Element(two_mins[1][0], two_mins[1][1])
     # node = Node(el1, el2)
-    node = Node(left_child=two_mins[0], left_freq=two_mins[0][1], right_child=two_mins[1],
+    # node = Node(left_child=two_mins[0], left_freq=two_mins[0][1], right_child=two_mins[1],
+    #             right_freq=two_mins[1][1])
+    node = Node(left_child=two_mins[0][0], left_freq=two_mins[0][1], right_child=two_mins[1][0],
                 right_freq=two_mins[1][1])
 
     del d[two_mins[0][0]]
@@ -63,8 +75,10 @@ if __name__ == "__main__":
     while len(d) >= 2:
 
         two_mins = sorted(d.items(), key=itemgetter(1))[:2]
-        new_node = Node(left_child=two_mins[0], left_freq=two_mins[0][1], right_child=two_mins[1],
-                right_freq=two_mins[1][1])
+        # new_node = Node(left_child=two_mins[0], left_freq=two_mins[0][1], right_child=two_mins[1],
+        #         right_freq=two_mins[1][1])
+        new_node = Node(left_child=two_mins[0][0], left_freq=two_mins[0][1], right_child=two_mins[1][0],
+                        right_freq=two_mins[1][1])
 
         del d[two_mins[0][0]]
         del d[two_mins[1][0]]
@@ -77,11 +91,24 @@ if __name__ == "__main__":
         #
         list_of_nodes.append(new_node)
 
-from collections import defaultdict
-encoded_dict = defaultdict(str)
+# from collections import defaultdict
+# encoded_dict = defaultdict(str)
+#
+# huffman_tree = list_of_nodes[-1]
+# left_child = huffman_tree.left_child
+#
+# while type(left_child) is tuple and type(left_child[0]) is not str:
+#     left_child = left_child[0].left_child
 
 huffman_tree = list_of_nodes[-1]
-left_child = huffman_tree.left_child
+def get_letter_code(node, letter):
+    huff_code = ''
+    if type(node.left_child[0]) is str:
+        if node.left_child[0] == letter:
+            huff_code += str(0)
+            return huff_code
+    if type(node) is not tuple:
+        if node.left_child:
+            get_letter_code(node.left_child, letter)
 
-while type(left_child) is tuple and type(left_child[0]) is not str:
-    left_child = left_child[0].left_child
+get_letter_code(huffman_tree, 'D')
