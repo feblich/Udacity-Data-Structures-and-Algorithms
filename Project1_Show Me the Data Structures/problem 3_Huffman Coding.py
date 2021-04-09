@@ -8,24 +8,39 @@ class Element:
         self.character = character
         self.frequency = frequency
 
+
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def size(self):
+        return len(self.items)
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.size() == 0:
+            return None
+        else:
+            return self.items.pop()
+
+# class Node(object):
+#
+#     def __init__(self, left_child=None, left_freq=0, right_child=None, right_freq=0):
+#
+#         self.left_child = left_child
+#         self.right_child = right_child
+#         self.value = left_freq + right_freq
+
 class Node(object):
 
-    def __init__(self, left_child=None, left_freq=0, right_child=None, right_freq=0):
+    def __init__(self, left_child=None, left_freq=0, right_child=None, right_freq=0, letter=None):
 
-        # from collections import defaultdict
         self.left_child = left_child
         self.right_child = right_child
-        self.value = left_freq + right_freq
-        # self.letter_code = defaultdict(list)
-
-    # def update_letter_code(self):
-    #     if type(self.left_child[0]) is str:
-    #         self.letter_code.append(0)
-    #
-    #     while node.left_child:
-    #         left_child = node.left_child
-
-
+        self.letter = letter
+        self.frequency = left_freq + right_freq
 
 def huffman_encoding(data):
     pass
@@ -59,30 +74,27 @@ if __name__ == "__main__":
         d[l] = s.count(l)
 
     two_mins = sorted(d.items(), key=itemgetter(1))[:2]
-    # el1 = Element(two_mins[0][0], two_mins[0][1])
-    # el2 = Element(two_mins[1][0], two_mins[1][1])
-    # node = Node(el1, el2)
-    # node = Node(left_child=two_mins[0], left_freq=two_mins[0][1], right_child=two_mins[1],
-    #             right_freq=two_mins[1][1])
-    node = Node(left_child=two_mins[0][0], left_freq=two_mins[0][1], right_child=two_mins[1][0],
-                right_freq=two_mins[1][1])
 
+    # node = Node(left_child=two_mins[0][0], left_freq=two_mins[0][1], right_child=two_mins[1][0],
+    #             right_freq=two_mins[1][1])
+
+    node = Node(left_child=Node(letter=two_mins[0][0], left_freq=two_mins[0][1]), left_freq=two_mins[0][1],
+                right_child=Node(letter=two_mins[1][0], right_freq=two_mins[1][1]), right_freq=two_mins[1][1])
     del d[two_mins[0][0]]
     del d[two_mins[1][0]]
-    d[node] = node.value
-
+    # d[node] = node.value
+    d[node] = node.frequency
     list_of_nodes.append(node)
     while len(d) >= 2:
 
         two_mins = sorted(d.items(), key=itemgetter(1))[:2]
-        # new_node = Node(left_child=two_mins[0], left_freq=two_mins[0][1], right_child=two_mins[1],
-        #         right_freq=two_mins[1][1])
+
         new_node = Node(left_child=two_mins[0][0], left_freq=two_mins[0][1], right_child=two_mins[1][0],
                         right_freq=two_mins[1][1])
 
         del d[two_mins[0][0]]
         del d[two_mins[1][0]]
-        d[new_node] = new_node.value
+        d[new_node] = new_node.frequency
 
         # if node.value <= new_node.value:
         #     new_node.set_right_child(node)
@@ -101,14 +113,24 @@ if __name__ == "__main__":
 #     left_child = left_child[0].left_child
 
 huffman_tree = list_of_nodes[-1]
-def get_letter_code(node, letter):
-    huff_code = ''
-    if type(node.left_child[0]) is str:
-        if node.left_child[0] == letter:
-            huff_code += str(0)
-            return huff_code
-    if type(node) is not tuple:
-        if node.left_child:
-            get_letter_code(node.left_child, letter)
 
-get_letter_code(huffman_tree, 'D')
+def get_letter_code(node):
+    from collections import defaultdict
+    huff_code = Stack()
+    letter_codes = defaultdict(list)
+    if node.left_child:
+        if node.left_child.letter:
+            huff_code.push(0)
+            letter_codes[node.left_child.letter] = huff_code.items
+            huff_code.pop()
+            if node.right_child.letter:
+                huff_code.push(1)
+                letter_codes[node.right_child.letter] = huff_code.items
+
+        get_letter_code(node.left_child)
+
+    return huff_code
+
+
+
+get_letter_code(huffman_tree)
