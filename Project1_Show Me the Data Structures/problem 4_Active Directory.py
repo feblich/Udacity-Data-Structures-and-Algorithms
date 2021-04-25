@@ -20,9 +20,6 @@ class Group(object):
         return self.name
 
 
-
-
-
 def is_user_in_group(user, group):
     """
     Return True if user is in the group, False otherwise.
