@@ -25,14 +25,6 @@ class Stack:
         else:
             return self.items.pop()
 
-# class Node(object):
-#
-#     def __init__(self, left_child=None, left_freq=0, right_child=None, right_freq=0):
-#
-#         self.left_child = left_child
-#         self.right_child = right_child
-#         self.value = left_freq + right_freq
-
 class Node(object):
 
     def __init__(self, left_child=None, left_freq=0, right_child=None, right_freq=0, letter=None):
@@ -49,22 +41,6 @@ def huffman_decoding(data,tree):
     pass
 
 if __name__ == "__main__":
-    # codes = {}
-    #
-    # a_great_sentence = "The bird is the word"
-    #
-    # print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
-    # print ("The content of the data is: {}\n".format(a_great_sentence))
-    #
-    # encoded_data, tree = huffman_encoding(a_great_sentence)
-    #
-    # print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-    # print ("The content of the encoded data is: {}\n".format(encoded_data))
-    #
-    # decoded_data = huffman_decoding(encoded_data, tree)
-    #
-    # print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    # print ("The content of the encoded data is: {}\n".format(decoded_data))
 
     s = 'AAAAAAABBBCCCCCCCDDEEEEEE'
     d = {}
@@ -102,15 +78,6 @@ if __name__ == "__main__":
         #     new_node.set_left_child(node)
         #
         list_of_nodes.append(new_node)
-
-# from collections import defaultdict
-# encoded_dict = defaultdict(str)
-#
-# huffman_tree = list_of_nodes[-1]
-# left_child = huffman_tree.left_child
-#
-# while type(left_child) is tuple and type(left_child[0]) is not str:
-#     left_child = left_child[0].left_child
 
 huffman_tree = list_of_nodes[-1]
 

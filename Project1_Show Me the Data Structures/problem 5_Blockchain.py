@@ -59,15 +59,15 @@ class Blockchain:
 if __name__ == '__main__':
 
     blockchain = Blockchain()
-    print(blockchain.size())  # must be 0
+    print(blockchain.size())  # 0
 
     blockchain.append('data0')
     blockchain.append('data1')
     blockchain.append('data2')
     blockchain.append('data3')
 
-    print(blockchain.size())  # must be 4
-    print(blockchain.tail.data)  # must be 'data3'
+    print(blockchain.size())  # 4
+    print(blockchain.tail.data)  # 'data3'
     print(blockchain.get_block_location('data1'))  # must return (2, 'data1') which is location of this block
 
 
