@@ -1,9 +1,9 @@
-import time
+import datetime
 import hashlib
 
 class Block:
     def __init__(self, data, previous_hash):
-        self.timestamp = time.time()
+        self.timestamp = datetime.datetime.now()
         self.data = data
         self.previous_hash = previous_hash
         self.hash = self.calc_hash(data)
@@ -54,6 +54,23 @@ class Blockchain:
             else:
                 return current_loc, data
 
+    def transact(self):
+        if self.tail is None:
+            return
+
+        curr = self.tail
+        while curr.previous_hash:
+            print("Block: {}".format(curr.hash))
+            print("Timestamp: {}".format(curr.timestamp))
+            print("Data: {}".format(curr.data))
+            print("Previous hash: {}".format(curr.previous_hash.hash))
+            curr = curr.previous_hash
+
+        print("Block: {}".format(curr.hash))
+        print("Timestamp: {}".format(curr.timestamp))
+        print("Data: {}".format(curr.data))
+        print("Previous hash: {}".format(curr.previous_hash))
+
 
 # testing
 if __name__ == '__main__':
@@ -70,6 +87,7 @@ if __name__ == '__main__':
     print(blockchain.tail.data)  # 'data3'
     print(blockchain.get_block_location('data1'))  # must return (2, 'data1') which is location of this block
 
+    blockchain.transact()
 
 
 
