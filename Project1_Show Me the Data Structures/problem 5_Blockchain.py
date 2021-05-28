@@ -83,12 +83,27 @@ if __name__ == '__main__':
     blockchain.append('data2')
     blockchain.append('data3')
 
+    # nominal edge cases
     print(blockchain.size())  # 4
     print(blockchain.tail.data)  # 'data3'
     print(blockchain.get_block_location('data1'))  # must return (2, 'data1') which is location of this block
+    blockchain.transact() # transact method
 
+    # edge case 1 (empty blockchain)
+    blockchain = Blockchain()
+    blockchain.append('')
+    print(blockchain.size())  # 1
+    print(blockchain.tail.data)  # must print nothing
+    print(blockchain.get_block_location(''))  # must return (, '') which is location of this empty block
+    blockchain.transact() # transact method
+
+    # edge case 2 (blockchain with 2 same timestamps)
+    blockchain = Blockchain()
+    blockchain.append('data0')
+    blockchain.tail.timestamp = datetime.datetime(2021, 5, 28, 10, 00, 00)
+    blockchain.append('data1')
+    blockchain.tail.timestamp = datetime.datetime(2021, 5, 28, 10, 00, 00)
     blockchain.transact()
-
 
 
 
