@@ -111,3 +111,38 @@ if __name__ == '__main__':
 
     print (union(linked_list_3,linked_list_4))  # [65, 2, 35, 3, 4, 6, 1, 7, 8, 9, 11, 21, 23]
     print (intersection(linked_list_3,linked_list_4))  # []
+
+
+    # edge test case 1 (one list is empty)
+    linked_list_1 = LinkedList()
+    linked_list_2 = LinkedList()
+
+    element_1 = [3,2,4,35,6,65,6,4,3,23]
+    element_2 = []
+
+    for i in element_1:
+        linked_list_1.append(i)
+
+    for i in element_2:
+        linked_list_2.append(i)
+
+    print(union(linked_list_1, linked_list_2))  # [65, 2, 35, 3, 4, 6, 23]
+    print(intersection(linked_list_1, linked_list_2))  # []
+
+    # edge case 2 (both lists are empty)
+    linked_list_1 = LinkedList()
+    linked_list_2 = LinkedList()
+
+    element_1 = []
+    element_2 = []
+
+    for i in element_1:
+        linked_list_1.append(i)
+
+    for i in element_2:
+        linked_list_2.append(i)
+
+    print(union(linked_list_1, linked_list_2))  # []
+    print(intersection(linked_list_1, linked_list_2))  # []
+
+
