@@ -14,6 +14,21 @@ def find_files(suffix, path):
 
 if __name__ == '__main__':
 
+    # test general functionality
     path = r'C:\Files\Udacity\Data Structures and Algorithms\P0\P0\Project1_Show Me the Data Structures\testdir\testdir'
     find_files('.c', path)
     files = find_files('.c', path)
+    print(files)
+
+    # test edge case 1 (invalid directory path)
+    path = r'C:\Files\Udacity\Data Structures and Algorithms\P0\P0\Project1_Show Me the Data Structures\testdir\testdir2'
+    try:
+        files = find_files('.c', path) # must raise error FileNotFoundError: [WinError 3] The system cannot find the path specified:
+    except FileNotFoundError as f:
+        print(f)
+
+    # test edge case 2 (empty directory)
+    path = r'C:\Files\Udacity\Data Structures and Algorithms\P0\P0\Project1_Show Me the Data Structures\testdir\testdir\empty'
+    find_files('.c', path)
+    files = find_files('.c', path)
+    print(files) # []
