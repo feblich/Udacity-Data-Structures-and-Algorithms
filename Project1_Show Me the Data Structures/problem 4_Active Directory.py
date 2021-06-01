@@ -8,6 +8,8 @@ class Group(object):
         self.groups.append(group)
 
     def add_user(self, user):
+        if not user:
+            raise ValueError("user must be non-empty")
         self.users.append(user)
 
     def get_groups(self):
@@ -58,3 +60,35 @@ if __name__ == "__main__":
     parent.add_group(child)
 
     print(is_user_in_group(sub_child_user, parent))  # True
+
+    # edge test case 1 (empty user)
+    parent = Group("parent")
+    child = Group("child")
+    sub_child = Group("subchild")
+
+    sub_child_user = ""
+    sub_child.add_user(sub_child_user) # must raise exception: "user must be non-empty"
+
+    # edge case 2 (user not found in the group)
+    parent = Group("parent")
+    child = Group("child")
+    sub_child = Group("subchild")
+
+    sub_child_user = "sub_child_user"
+
+    child.add_group(sub_child)
+    parent.add_group(child)
+
+    print(is_user_in_group(sub_child_user, parent)) # False
+
+    # edge case 3 (user does not have parents)
+    parent = Group("parent")
+    child = Group("child")
+    sub_child = Group("subchild")
+
+    sub_child_user = "sub_child_user"
+
+    child.add_group(sub_child)
+    print(is_user_in_group(sub_child_user, parent)) # False
+
+
