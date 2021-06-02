@@ -15,21 +15,36 @@ Both get and set methods are in O(1) time because `move_to_end` and `popitem` me
 ## problem 2 File Recursion
 
 Since there is no limit to the depth of the subdirectories, recursion could be a good approach to solve this problem.
-In this approach, for each object in the folder, if object is a subdirectory, find_files function is called recursively
+In this approach, for each object in the folder, if object is a subdirectory, `find_files` function is called recursively
 to get all files in subdirectories below the folder until all files in all subdirectories are extracted. Only files with
-suffix .c are selected. Time complexity depends on depth of the subdirectories and the number of files in each.
+suffix .c are selected. Time complexity depends on depth of the subdirectories and the number of files in each, therefore
+it approximately has O(depth*number of files in the folder)
 
 ## problem 3 Huffman Coding
 
-I was able to create the Huffman tree by creating a dictionary of letters and their frequency and then replacing couple
-of elements from this dictionary with lowest frequency with node object. Now th task is to extract huffman coding
-by traversing from a letter node at the bottom of the tree to the top node which can be done with a stack.
+In my implementation, the Huffman tree for a string of characters is consisted of node objects. Each node object has the
+following attributes:
+- `left_child` which is a node object itself
+- `right_child` which is a node object itself
+- `freq` which is the sum of left and right node frequencies
+- `letter`
+- `huff_binary` which demonstrates whether the node is on the left(0) or right(1) of its parent
+
+I then constructed the Huffman tree by creating a list of leaf nodes (nodes where `left_child` and `right_child` are `None`)
+and merging the 2 nodes with the lowest frequency and resorting the list until only one node (the Huffman tree) is left.
+I then traverse the Huffman tree recursively to generate a dictionary of letters with their corresponding Huffman code.
+This dictionary is used to generate Huffman encoding for a given string. Given a Huffman tree and the encoded string, I
+can decode by going left (when encountered 0) and right (when encountered 1) in the tree until a leaf node is reached,
+after which I need to go back to the root of the tree and repeat until all bits in the encoded string are traversed.
+Traversing list of nodes takes O(n) time where n is the length of the list so time complexity highly depends on the size
+of the input string. The sorted function used to sort list of nodes has O(n log(n)) time complexity.
 
 ## problem 4 Active Directory
 
 Because there is no definitive limit to the size of the group, recursion would be a good choice to look for a user in
 the group. `is_user_in_group(user,group)` function is recursively called for each subgroup in group to check for existence of `user`
-Time complexity depends on the number of users and structure of the group.
+Time complexity depends on the number of users and structure of the group, therefore it approximately has
+O(number of users * structure of the group).
 
 ## problem 5 Blockchain
 
