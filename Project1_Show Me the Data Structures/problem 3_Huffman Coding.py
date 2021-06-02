@@ -36,18 +36,31 @@ def get_huffman_tree(the_string):
 
     return nodes[0]
 
-def huffman_encoding(huffman_tree, val='', letter_codes=defaultdict(list)):
-    huff_code = val + str(huffman_tree.huff_binary)
+def traverse_huffman_tree(huffman_tree, val='', letter_codes=defaultdict(list)):
 
+    huff_code = val + str(huffman_tree.huff_binary)
     if huffman_tree.left_child:
-        huffman_encoding(huffman_tree.left_child, huff_code)
+        traverse_huffman_tree(huffman_tree.left_child, huff_code)
     if huffman_tree.right_child:
-        huffman_encoding(huffman_tree.right_child, huff_code)
+        traverse_huffman_tree(huffman_tree.right_child, huff_code)
 
     if huffman_tree.left_child is None and huffman_tree.right_child is None:
         letter_codes[huffman_tree.letter] = huff_code
 
     return letter_codes
+
+def huffman_encoding(data):
+    huffman_tree = get_huffman_tree(data)
+    huff_codes_dict = traverse_huffman_tree(huffman_tree)
+    encoded_data = ''
+    for letter in data:
+        encoded_data += huff_codes_dict[letter]
+
+    return encoded_data, huffman_tree
+
+
+
+
 
 def huffman_decoding(data,tree):
     pass
@@ -55,5 +68,4 @@ def huffman_decoding(data,tree):
 if __name__ == "__main__":
 
     s = 'AAAAAAABBBCCCCCCCDDEEEEEE'
-    huffman_tree = get_huffman_tree(s)
-    huffman_encoded = huffman_encoding(huffman_tree)
+    encoded_data, tree = huffman_encoding(s)
