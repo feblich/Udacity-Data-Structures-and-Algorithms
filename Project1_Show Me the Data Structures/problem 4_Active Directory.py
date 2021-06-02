@@ -71,7 +71,6 @@ if __name__ == "__main__":
         sub_child.add_user(sub_child_user) # must raise exception: "user must be non-empty"
     except ValueError as v:
         print(v)
-        
 
     # edge case 2 (user not found in the group)
     parent = Group("parent")
