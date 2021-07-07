@@ -26,10 +26,10 @@ def find_pivot(start, end, input_list):
         return mid + 1
     else:
         if input_list[start] > input_list[mid]:
-            # It means that pivot is in left of mid
+            
             pivot_index = find_pivot(start, mid-1, input_list)
         else:
-            # It means that pivot is in the right of mid
+            
             pivot_index = find_pivot(mid+1, end, input_list)
 
     return pivot_index
@@ -48,7 +48,6 @@ def binary_search(array, low, high, number):
             return binary_search(array, low, mid-1, number)
     else:
         return -1
-
 
 def linear_search(input_list, number):
     for index, element in enumerate(input_list):
