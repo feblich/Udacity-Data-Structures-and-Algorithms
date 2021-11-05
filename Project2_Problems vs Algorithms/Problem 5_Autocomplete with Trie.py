@@ -76,3 +76,5 @@ for word in wordList:
 print(MyTrie.find('f').suffixes())
 print(MyTrie.find('ant').suffixes())
 print(MyTrie.find('tri').suffixes())
+
+# Reference: https://github.com/Axel-Bravo/19_udacity_dsa/blob/master/3_003_Project_Problems_vs_Algorithms/005_Problem_5.py

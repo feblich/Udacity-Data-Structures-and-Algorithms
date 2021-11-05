@@ -37,4 +37,11 @@ the mid index is at 0, if `arr[mid]==1` then the element is not moved and instea
 `arr[mid] == 2` it is moved to the right most position and if it is one, to the leftmost position. Time complexity is 
 `O(n)` because all elements in the array are visited. Space complexity is also `O(n)`.
 
-## problem 5
+## problem 5 autocomplete with Trie
+
+A trie is a tree data structure (not necessarily binary tree) where each node contains a letter (key) and children (value),
+and a tag that specifies whether that node denotes a word. The root node does not denote letter but it has children.
+Given a letter(s), the tree is traversed to retrieve all valid words that begin with that letter(s). Similar to tree
+traversal, trie traversal is done through recursive algorithms. Time complexity of search and insert for this implementation,
+depends on the length of the word and total number of words in the trie, n, and is `O(word*n)`. Space complexity depends on the
+total number of words in the trie and is `O(n)`
