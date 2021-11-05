@@ -52,3 +52,13 @@ In this problem we would like to find min and max of an array in a single traver
 and the task can be done using two placeholders as reference for max and min values. Time complexity is `O(n)` where n is 
 the size of the array (there is only one traversal of the array). As we only have two pointers (for max and min, mentioned
 above), space complexity is independent of array size and thus is `O(n)`
+
+## problem 7 HTTP router with Trie
+
+In the implementation of HTTP router for this exercise we would use a trie data structure with some modifications. Most
+notably, instead of splitting the path into letters, we would split the path based on the parts that are separated by 
+a `/`. The Router class is made up of a RouterTrie at the root and RouterTrie contains RouterTrieNodes at its root with
+associated children. Time complexity of searching, inserting and deletion depends on the length of the word, `a` and 
+the number of total words `n`, and therefore is `O(a*n)`. The worst case for time complexity is for searching, insertion
+and deletion of the longest key from a trie with the most number of keys. If `n` is the number of components in the path,
+then space complexity would be `O(n)`.
