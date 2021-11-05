@@ -45,3 +45,10 @@ Given a letter(s), the tree is traversed to retrieve all valid words that begin 
 traversal, trie traversal is done through recursive algorithms. Time complexity of search and insert for this implementation,
 depends on the length of the word and total number of words in the trie, n, and is `O(word*n)`. Space complexity depends on the
 total number of words in the trie and is `O(n)`
+
+## problem 6 unsorted integer array
+
+In this problem we would like to find min and max of an array in a single traversal. There is no need to sort the array
+and the task can be done using two placeholders as reference for max and min values. Time complexity is `O(n)` where n is 
+the size of the array (there is only one traversal of the array). As we only have two pointers (for max and min, mentioned
+above), space complexity is independent of array size and thus is `O(n)`
