@@ -41,3 +41,5 @@ test_function([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
 # edge cases
 test_function([0, 1, 1, 0, 1])
 test_function([0, 0, 0, 0, 0, 0])
+
+# reference: https://github.com/suhassrivats/Udacity-Data-Structures-and-Algorithms/blob/master/3_ProblemsVsAlgorithms/problem_4_DutchNationalFlagProblem.py
