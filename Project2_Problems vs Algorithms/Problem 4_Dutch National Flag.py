@@ -10,7 +10,7 @@ def sort_012(input_list):
     mid = 0
     while mid <= high:
         if input_list[mid] == 0:
-            input_list[mid] == input_list[low]
+            input_list[mid] = input_list[low]
             low += 1
             mid += 1
             continue
@@ -39,3 +39,5 @@ test_function([2, 1, 2, 0, 0, 2, 1, 0, 1, 0, 0, 2, 2, 2, 1, 2, 0, 0, 0, 2, 1, 0,
 test_function([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
 
 # edge cases
+test_function([0, 1, 1, 0, 1])
+test_function([0, 0, 0, 0, 0, 0])
