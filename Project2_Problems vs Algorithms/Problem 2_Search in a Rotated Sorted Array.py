@@ -7,6 +7,13 @@ def rotated_array_search(input_list, number):
     Returns:
        int: Index or -1
     """
+    if not input_list:
+        return -1
+
+    if len(input_list) == 1:
+        if number in input_list:
+            return 0
+        return -1
     low = 0
     high = len(input_list) - 1
     pivot_index = find_pivot(low, high, input_list)
@@ -64,8 +71,15 @@ def test_function(test_case):
         print("Fail")
 
 if __name__ == '__main__':
+
+    # test cases
     test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 6])
     test_function([[6, 7, 8, 9, 10, 1, 2, 3, 4], 1])
     test_function([[6, 7, 8, 1, 2, 3, 4], 8])
     test_function([[6, 7, 8, 1, 2, 3, 4], 1])
     test_function([[6, 7, 8, 1, 2, 3, 4], 10])
+
+    # edge cases
+    test_function([[], 8])   # empty list and a non-existent number is queried
+    test_function([[2], 0])  # list with one element and a non-existent number is queried
+    test_function([[2], 2])  # list with one element and the existing element is queried
