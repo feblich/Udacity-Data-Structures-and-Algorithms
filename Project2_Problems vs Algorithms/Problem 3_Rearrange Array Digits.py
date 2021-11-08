@@ -7,6 +7,10 @@ def rearrange_digits(input_list):
     Returns:
        (int),(int): Two maximum sums
     """
+
+    # handle empty list
+    if not input_list:
+        return None
     # sort the list in descending order
     quicksort(input_list)
     input_list.reverse()
@@ -59,6 +63,10 @@ def quicksort(items):
 def test_function(test_case):
     output = rearrange_digits(test_case[0])
     solution = test_case[1]
+    if not output and output == solution:
+        print("List is empty")
+        print("Pass")
+        return
     if sum(output) == sum(solution):
         print("Pass")
     else:
@@ -74,4 +82,7 @@ test_case = [[1,1,1], [11, 1]]
 test_function(test_case)
 
 test_case = [[1], [1]]
+test_function(test_case)
+
+test_case = [[], None]
 test_function(test_case)
