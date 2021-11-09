@@ -57,10 +57,21 @@ Given a letter(s), the tree is traversed to retrieve all valid words that begin 
 traversal, trie traversal is done through recursive algorithms. 
 
 - Time & Space Complexity
-Time complexity of search and insert for this implementation,
-depends on the length of the word `a` that the operation is performed on, and total number of words in the trie, n, and is `O(a*n)`. 
-Space complexity depends on the total number of words in the trie and the worst case happens when there are no common
-characters between the words and therefore we should have a node for each letter,`O(n)`
+
+Time complexity of Trie methods are as follows:
+
+- Insert method is `O(n)` where `n` is the length of the word being inserted.
+- Find methods is `O(n*s)` where `n` is the length of the word and `s` is the length of search path (nodes visited).
+- Suffixes method is `O(n*s)` where `n` is the number of complete words in the input list and `s` is the length of search path (nodes visited).
+
+Space complexity of Trie methods are as follows:
+
+- Insert and Find: Space complexity depends on the total number of words in the trie and the worst case happens when there are no common 
+characters between the words and therefore we should have a node for each letter, `O(n)` for both **insert and find**
+  
+- Suffixes method is a recursive function and thus its space complexity is proportional to the max depth of recursion.
+Therefore, space complexity for this methods is `O(m*n)` where `m` is the space required for each substring that completes
+  the prefix and `n` is the max depth (number of such substrings).
 
 ## problem 6 unsorted integer array
 
@@ -68,6 +79,7 @@ In this problem we would like to find min and max of an array in a single traver
 and the task can be done using two placeholders as reference for max and min values. 
 
 - Time & Space Complexity
+
 Time complexity is `O(n)` where n is the size of the array (there is only one traversal of the array). As we only have 
   two pointers (for max and min, mentioned above), space complexity is independent of array size and thus is `O(1)`
 
@@ -79,6 +91,14 @@ a `/`. The Router class is made up of a RouterTrie at the root and RouterTrie co
 associated children. 
 
 - Time & Space Complexity
-Time complexity of searching, inserting and deletion depends on the length of the word, `a` and the number of total words `n`, 
-  and therefore is `O(a*n)`. The worst case for time complexity is for searching, insertion and deletion of the longest
-  key from a trie with the most number of keys. If `n` is the number of components in the path, then space complexity would be `O(n)`.
+** Time Complexity**
+  
+
+Time complexity of **lookup** and **insertion** depends on the length of the word, `a` that's being searched for or inserted 
+and the number of total words `n`, and therefore is `O(a*n)`. The worst case for time complexity is for lookup and
+insertion of the longest key from a trie with the most number of keys. If `n` is the number of components
+in the path, then space complexity would be `O(n)`.
+  
+
+** Space Complexity**
+Space complexity for **insertion** and **lookup** is `O(n)` where `n` is the number of components in the path

@@ -9,7 +9,7 @@ def rearrange_digits(input_list):
     """
 
     # handle empty list
-    if not input_list:
+    if not input_list or None in input_list:
         return None
     # sort the list in descending order
     quicksort(input_list)
@@ -64,7 +64,6 @@ def test_function(test_case):
     output = rearrange_digits(test_case[0])
     solution = test_case[1]
     if not output and output == solution:
-        print("List is empty")
         print("Pass")
         return
     if sum(output) == sum(solution):
@@ -85,4 +84,10 @@ test_case = [[1], [1]]
 test_function(test_case)
 
 test_case = [[], None]
+test_function(test_case)
+
+test_case = [[None], None]
+test_function(test_case)
+
+test_case = [[None, 1], None]
 test_function(test_case)
