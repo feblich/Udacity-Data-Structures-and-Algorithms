@@ -11,6 +11,8 @@ and if the mid value square is greater than the given number we can get rid of t
 of mid value until mid value square is equal to the number. 
 
 - Time & Space Complexity
+
+
 Time complexity is O(log(n)) as we traverse the natural number list by a binary search approach. Space complexity is `O(1)`
   as it is independent of the input size.
 
@@ -23,6 +25,8 @@ is located, it can be used as kind of a midpoint in the `rotated_array_search` t
 in the list. 
 
 - Time & Space Complexity
+
+
 Given that both functions are based on binary search algorithm, the time complexity is `O(log(n))`. Similar
 to problem 1, space complexity is independent of input size and thus is O(1).
 
@@ -34,6 +38,8 @@ for the digit on the left of both numbers. The algorithm first sorts the array i
 sort function and a recursive approach (quicksort)), then 2 numbers are formed using digits on odd and even index locations. 
 
 - Time & Space Complexity
+
+
 Since quicksort is used for the sorting part, best case time complexity is `O(nlog(n))` and worst time complexity is `O(n2)`. 
 source: https://www.geeksforgeeks.org/time-complexities-of-all-sorting-algorithms/ 
 Space complexity of the quicksort part is `Olog(n)`, source: https://www.geeksforgeeks.org/analysis-of-different-sorting-techniques/
@@ -46,6 +52,8 @@ the mid index is at 0, if `arr[mid]==1` then the element is not moved and instea
 `arr[mid] == 2` it is moved to the right most position and if it is one, to the leftmost position. 
 
 - Time & Space Complexity
+
+
 Time complexity is`O(n)` because all elements in the array are visited. Space complexity `O(1)` since we are using only
   a few pointers.
 
@@ -91,7 +99,9 @@ a `/`. The Router class is made up of a RouterTrie at the root and RouterTrie co
 associated children. 
 
 - Time & Space Complexity
-** Time Complexity**
+
+
+**Time Complexity**
   
 
 Time complexity of **lookup** and **insertion** depends on the length of the word, `a` that's being searched for or inserted 
@@ -100,5 +110,7 @@ insertion of the longest key from a trie with the most number of keys. If `n` is
 in the path, then space complexity would be `O(n)`.
   
 
-** Space Complexity**
+**Space Complexity**
+
+
 Space complexity for **insertion** and **lookup** is `O(n)` where `n` is the number of components in the path
