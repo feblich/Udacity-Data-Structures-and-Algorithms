@@ -66,18 +66,23 @@ traversal, trie traversal is done through recursive algorithms.
 
 - Time & Space Complexity
 
-Time complexity of Trie methods are as follows:
+Time complexity of methods in Trie and TriNode classes are as follows:
 
-- Insert method is `O(n)` where `n` is the length of the word being inserted.
-- Find methods is `O(n*s)` where `n` is the length of the word and `s` is the length of search path (nodes visited).
-- Suffixes method is `O(n*s)` where `n` is the number of complete words in the input list and `s` is the length of search path (nodes visited).
+- `__init__` method of TrieNode class does not depend on the length of any input object and thus is `O(1)` 
+- `__init__` method of Trie class instantiates a TrieNode object in the root of Trie and similar to above, is `O(1)`
+- `insert` method in Trie class is `O(n)` where `n` is the length of the word being inserted.
+- `insert` method in TrieNode class depends on the length of `char` and since this length is always 1, therefore time complexity is `O(1)`
+- `find` method in Trie class is `O(n*s)` where `n` is the length of the word and `s` is the length of search path (nodes visited).
+- `suffixes` method in TrieNode is `O(n*s)` where `n` is the number of complete words in the input list and `s` is the length of search path (nodes visited).
 
-Space complexity of Trie methods are as follows:
+Space complexity of methods is Trie and TrieNode classes are as follows:
 
-- Insert and Find: Space complexity depends on the total number of words in the trie and the worst case happens when there are no common 
+- `__init__` method of TrieNode class does not depend on the length of any input object and thus is `O(1)` 
+- `__init__` method of Trie class instantiates a TrieNode object in the root of Trie and similar to above, is `O(1)`
+- `insert` and `find` in Trie class: Space complexity depends on the total number of words in the trie and the worst case happens when there are no common 
 characters between the words and therefore we should have a node for each letter, `O(n)` for both **insert and find**
-  
-- Suffixes method is a recursive function and thus its space complexity is proportional to the max depth of recursion.
+- `insert` method in TrieNode class is `O(1)` as the length of `char` is always 1.
+- `suffixes` method in TrieNode class is a recursive function and thus its space complexity is proportional to the max depth of recursion.
 Therefore, space complexity for this methods is `O(m*n)` where `m` is the space required for each substring that completes
   the prefix and `n` is the max depth (number of such substrings).
 
