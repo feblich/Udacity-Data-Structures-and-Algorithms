@@ -105,17 +105,30 @@ associated children.
 
 - Time & Space Complexity
 
+Time complexity of methods in RouteTrieNode, RouteTrie and Router are as follows:
 
-**Time Complexity**
-  
-
-Time complexity of **lookup** and **insertion** depends on the length of the word, `a` that's being searched for or inserted 
+- `__init__` method of RouteTrieNode class is `O(1)` as it only inserts `handler` once when called.
+_ `__init__` method of RouteTrie class is `O(1*1)` or `O(1)` as it only inserts handler from RouteTrieNode and from this class once when called.
+- `__init__` method of Router is class `O(1*1*1)` or `O(1)` as it only inserts handler from RouteTrieNode, RouterNode and from this class once when called.
+of the handler attribute in the Router class
+- `lookup` from Router class and `insert` from RouteTrie depend on the length of the word, `a` that's being searched for or inserted 
 and the number of total words `n`, and therefore is `O(a*n)`. The worst case for time complexity is for lookup and
-insertion of the longest key from a trie with the most number of keys. If `n` is the number of components
-in the path, then space complexity would be `O(n)`.
-  
+insertion of the longest key from a trie with the most number of keys.
+- `insert` method of class RouterTrieNode class does not depend on the length of any input object and thus is `O(1)`
+- `find` method of the RouterTrie class is `O(n)` where n is the length of `path`
+- `split_path` method of the Router class called Python built-in `split` function and thus has time complexity `O(n)`
+  where n is the length of the path.
+- `add_handler` in the Router class is `O(n)` where n is the length of `path_list` list
 
-**Space Complexity**
+Space complexity of the methods in RouteTrieNode, RouteTrie and Router are as follows:
 
-
-Space complexity for **insertion** and **lookup** is `O(n)` where `n` is the number of components in the path
+- `__init__` method of RouteTrieNode class is `O(n)` as it only depends on the length of the `handler`
+_ `__init__` method of RouteTrie class is `O(n*m)` where n is from RouteTrieNode object and m is the length of the handler in RouteTrie
+- `__init__` method of Router is class `O(n*m*a)` where n and m have the same meaning as above bullet points and a is the length
+of the handler attribute in the Router class
+- `lookup` from Router class and `insert` from RouteTrie is `O(n)` where `n` is the number of components in the path
+- `insert` method of class RouterTrieNode class depends on the length of `handler` string and thus is `O(n)`
+- `find` method of the RouterTrie class is `O(n)` where n is the length of `path`
+- `split_path` method of the Router class called Python built-in `split` function and thus has time complexity `O(n)`
+  where n is the length of the path.
+- `add_handler` in the Router class is `O(n)` where n is the length of `path_list` list
