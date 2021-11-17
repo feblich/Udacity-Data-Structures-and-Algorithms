@@ -82,38 +82,81 @@ intersections = {0: [0.7801603911549438, 0.49474860768712914],
  38: [0.17972981733780147, 0.999395685828547],
  39: [0.6315322816286787, 0.7311657634689946]}
 
+
+# from math import sqrt
+#
+# def shortest_path(roads, intersections, start, goal):
+#     path = [start]
+#
+#     g_cost = [0]*len(roads)
+#     f_cost = [0]*len(roads)
+#     visited_nodes = []
+#     curr_node = start
+#     while curr_node != goal:
+#         f_cost_curr_neighbors = [0]*len(roads[curr_node])
+#         for i , node in enumerate(roads[curr_node]):
+#             g_cost[node] += euclidean_distance_heuristic(intersections[curr_node], intersections[node])
+#             f_cost[node] += g_cost[node] + euclidean_distance_heuristic(intersections[node], intersections[goal])
+#             f_cost_curr_neighbors[i] += g_cost[node] + euclidean_distance_heuristic(intersections[node], intersections[goal])
+#
+#         idx = f_cost_curr_neighbors.index(min(f_cost_curr_neighbors))
+#         if curr_node in visited_nodes:
+#             curr_node = roads[curr_node][idx]
+#             continue
+#         path.append(roads[curr_node][idx])
+#         visited_nodes.append(curr_node)
+#         curr_node = roads[curr_node][idx]
+#
+#     return path
+#
+#
+# def euclidean_distance_heuristic(start_coordinate, goal_coordinate):
+#     return sqrt(((start_coordinate[0] - goal_coordinate[0]) ** 2) + ((start_coordinate[1] - goal_coordinate[1]) ** 2))
+
+
 from queue import PriorityQueue
+import ast
 from math import sqrt
-
+from collections import defaultdict
 def shortest_path(roads, intersections, start, goal):
+
     path = [start]
-
-    g_cost = [0]*len(roads)
-    f_cost = [0]*len(roads)
     visited_nodes = []
+    path_g_dict = defaultdict(int)
     curr_node = start
+    frontier_path = ('[]', [])
     while curr_node != goal:
-        f_cost_curr_neighbors = [0]*len(roads[curr_node])
+        #path_g_dict = defaultdict(int)
         for i , node in enumerate(roads[curr_node]):
-            g_cost[node] += euclidean_distance_heuristic(intersections[curr_node], intersections[node])
-            f_cost[node] += g_cost[node] + euclidean_distance_heuristic(intersections[node], intersections[goal])
-            f_cost_curr_neighbors[i] += g_cost[node] + euclidean_distance_heuristic(intersections[node], intersections[goal])
+            if node not in visited_nodes:
+                this_path = list((curr_node,node))
+                if not ast.literal_eval(frontier_path[0]):
+                     this_path = list(set(ast.literal_eval(frontier_path[0]) + this_path))
+                else:
+                     this_path.remove(list(set(ast.literal_eval(frontier_path[0])) & set(this_path))[0])
+                     this_path = ast.literal_eval(frontier_path[0])+this_path
+                if not ast.literal_eval(frontier_path[0]):
+                    path_g_dict[str(this_path)] += euclidean_distance_heuristic(intersections[curr_node], intersections[node])
+                else:
+                    if frontier_path[0] in path_g_dict.keys():
+                        path_g_dict.pop(frontier_path[0])
+                    path_g_dict[str(this_path)] += frontier_path[1] + euclidean_distance_heuristic(intersections[curr_node], intersections[node])
 
-        idx = f_cost_curr_neighbors.index(min(f_cost_curr_neighbors))
-        if curr_node in visited_nodes:
-            curr_node = roads[curr_node][idx]
-            continue
-        path.append(roads[curr_node][idx])
+                path_g_dict[str(this_path)] += euclidean_distance_heuristic(intersections[node], intersections[goal])
+
+        frontier_path = sorted(path_g_dict.items(), key=lambda k_v: k_v[1])[0]
         visited_nodes.append(curr_node)
-        curr_node = roads[curr_node][idx]
+        curr_node = ast.literal_eval(frontier_path[0])[-1]
+        while curr_node in visited_nodes:
+            copy_path_g_dict = sorted(path_g_dict.items(), key=lambda k_v: k_v[1]).copy()
+            copy_path_g_dict.remove(copy_path_g_dict[0])
+            curr_node = ast.literal_eval(copy_path_g_dict[0][0])[-1]
 
     return path
 
 
 def euclidean_distance_heuristic(start_coordinate, goal_coordinate):
     return sqrt(((start_coordinate[0] - goal_coordinate[0]) ** 2) + ((start_coordinate[1] - goal_coordinate[1]) ** 2))
-
-#path = shortest_path(roads, intersections, start, goal)
 
 start = 8
 goal  = 24
