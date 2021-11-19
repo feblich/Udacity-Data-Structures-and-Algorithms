@@ -83,84 +83,95 @@ intersections = {0: [0.7801603911549438, 0.49474860768712914],
  39: [0.6315322816286787, 0.7311657634689946]}
 
 
-# from math import sqrt
-#
-# def shortest_path(roads, intersections, start, goal):
-#     path = [start]
-#
-#     g_cost = [0]*len(roads)
-#     f_cost = [0]*len(roads)
-#     visited_nodes = []
-#     curr_node = start
-#     while curr_node != goal:
-#         f_cost_curr_neighbors = [0]*len(roads[curr_node])
-#         for i , node in enumerate(roads[curr_node]):
-#             g_cost[node] += euclidean_distance_heuristic(intersections[curr_node], intersections[node])
-#             f_cost[node] += g_cost[node] + euclidean_distance_heuristic(intersections[node], intersections[goal])
-#             f_cost_curr_neighbors[i] += g_cost[node] + euclidean_distance_heuristic(intersections[node], intersections[goal])
-#
-#         idx = f_cost_curr_neighbors.index(min(f_cost_curr_neighbors))
-#         if curr_node in visited_nodes:
-#             curr_node = roads[curr_node][idx]
-#             continue
-#         path.append(roads[curr_node][idx])
-#         visited_nodes.append(curr_node)
-#         curr_node = roads[curr_node][idx]
-#
-#     return path
-#
-#
-# def euclidean_distance_heuristic(start_coordinate, goal_coordinate):
-#     return sqrt(((start_coordinate[0] - goal_coordinate[0]) ** 2) + ((start_coordinate[1] - goal_coordinate[1]) ** 2))
 
 
-from queue import PriorityQueue
-import ast
+
 from math import sqrt
-from collections import defaultdict
+
+class Path(object):
+    def __init__(self, node_list=None, f_cost=0, goal_node=None):
+        self.node_list = node_list
+        self.goal_node = goal_node
+        self.frontier_node = self._get_frontier()
+        self.f_cost = f_cost
+
+    def insert(self, new_node):
+        self.node_list.append(new_node)
+        #self.node_list = self.node_list.copy()
+        self._update_f()
+        self.frontier_node = self._get_frontier()
+
+    def _update_f(self):
+        if len(self.node_list) >= 2:
+            g_new = euclidean_distance(intersections[self.node_list[-2]], intersections[self.node_list[-1]])
+            h_new = euclidean_distance(intersections[self.node_list[-1]], intersections[self.goal_node])
+            self.f_cost += g_new + h_new
+            return
+        self.f_cost = 0
+
+    def _get_frontier(self):
+        if self.node_list:
+            return self.node_list[-1]
+        else:
+            return None
+
+
+class PriorityQueue(object):
+    def __init__(self):
+        self.queue = []
+
+    # for checking if the queue is empty
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    # for inserting an element in the queue
+    def insert(self, data):
+        self.queue.append(data)
+
+    # for popping an element based on Priority
+    def pop(self):
+        try:
+            _min = 0 # f_cost is always non-negative so this works
+            for i in range(len(self.queue)):
+                if self.queue[i].f_cost < self.queue[_min].f_cost:
+                    _min = i
+            item = self.queue[_min]
+            del self.queue[_min]
+            return item
+        except IndexError:
+            pass
+
+
+def euclidean_distance(start_coordinate, goal_coordinate):
+    return sqrt(((start_coordinate[0] - goal_coordinate[0]) ** 2) +
+                ((start_coordinate[1] - goal_coordinate[1]) ** 2))
+
+
+
+
 def shortest_path(roads, intersections, start, goal):
 
-    path = [start]
-    visited_nodes = []
-    path_g_dict = defaultdict(int)
+    all_paths = PriorityQueue()
     curr_node = start
-    frontier_path = ('[]', [])
+
     while curr_node != goal:
-        #path_g_dict = defaultdict(int)
-        for i , node in enumerate(roads[curr_node]):
-            if node not in visited_nodes:
-                this_path = list((curr_node,node))
-                if not ast.literal_eval(frontier_path[0]):
-                     this_path = list(set(ast.literal_eval(frontier_path[0]) + this_path))
-                else:
-                     this_path.remove(list(set(ast.literal_eval(frontier_path[0])) & set(this_path))[0])
-                     this_path = ast.literal_eval(frontier_path[0])+this_path
-                if not ast.literal_eval(frontier_path[0]):
-                    path_g_dict[str(this_path)] += euclidean_distance_heuristic(intersections[curr_node], intersections[node])
-                else:
-                    if frontier_path[0] in path_g_dict.keys():
-                        path_g_dict.pop(frontier_path[0])
-                    path_g_dict[str(this_path)] += frontier_path[1] + euclidean_distance_heuristic(intersections[curr_node], intersections[node])
+        for node in roads[curr_node]:
+            if curr_node == start:
+                cheapest_path = Path(node_list = [start], goal_node = goal)
+                cheapest_path.insert(node)
+            else:
+                if node in cheapest_path.node_list:
+                    continue
+                cheapest_path.insert(node)
+            all_paths.insert(cheapest_path)
 
-                path_g_dict[str(this_path)] += euclidean_distance_heuristic(intersections[node], intersections[goal])
-
-        frontier_path = sorted(path_g_dict.items(), key=lambda k_v: k_v[1])[0]
-        visited_nodes.append(curr_node)
-        curr_node = ast.literal_eval(frontier_path[0])[-1]
-        while curr_node in visited_nodes:
-            copy_path_g_dict = sorted(path_g_dict.items(), key=lambda k_v: k_v[1]).copy()
-            copy_path_g_dict.remove(copy_path_g_dict[0])
-            curr_node = ast.literal_eval(copy_path_g_dict[0][0])[-1]
-
-    return path
+        cheapest_path = all_paths.pop()
+        if not cheapest_path:
+            return cheapest_path
+        curr_node = cheapest_path.frontier_node
 
 
-def euclidean_distance_heuristic(start_coordinate, goal_coordinate):
-    return sqrt(((start_coordinate[0] - goal_coordinate[0]) ** 2) + ((start_coordinate[1] - goal_coordinate[1]) ** 2))
 
 start = 8
 goal  = 24
 path = shortest_path(roads, intersections, start, goal)
-
-print(path)
-
