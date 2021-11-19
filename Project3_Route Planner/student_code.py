@@ -93,21 +93,34 @@ class Path(object):
         self.node_list = node_list
         self.goal_node = goal_node
         self.frontier_node = self._get_frontier()
+        self.prev_frontier_node = None
         self.f_cost = f_cost
 
     def insert(self, new_node):
         self.node_list.append(new_node)
         #self.node_list = self.node_list.copy()
-        self._update_f()
+        self._update_f_insertion()
         self.frontier_node = self._get_frontier()
 
-    def _update_f(self):
+    def _update_f_insertion(self):
         if len(self.node_list) >= 2:
             g_new = euclidean_distance(intersections[self.node_list[-2]], intersections[self.node_list[-1]])
             h_new = euclidean_distance(intersections[self.node_list[-1]], intersections[self.goal_node])
             self.f_cost += g_new + h_new
             return
         self.f_cost = 0
+
+    def pop(self):
+        self._update_f_pop()
+        self.node_list.pop()
+
+
+    def _update_f_pop(self):
+        if len(self.node_list) >= 2:
+            g_loss = euclidean_distance(intersections[self.node_list[-2]], intersections[self.node_list[-1]])
+            h_loss = euclidean_distance(intersections[self.node_list[-1]], intersections[self.goal_node])
+            self.f_cost -= (g_loss + h_loss)
+            return
 
     def _get_frontier(self):
         if self.node_list:
@@ -162,6 +175,8 @@ def shortest_path(roads, intersections, start, goal):
             else:
                 if node in cheapest_path.node_list:
                     continue
+                if cheapest_path.prev_frontier_node != cheapest_path.node_list[-1]:
+                    cheapest_path.pop()
                 cheapest_path.insert(node)
             all_paths.insert(cheapest_path)
 
@@ -169,6 +184,7 @@ def shortest_path(roads, intersections, start, goal):
         if not cheapest_path:
             return cheapest_path
         curr_node = cheapest_path.frontier_node
+        cheapest_path.prev_frontier_node = cheapest_path.frontier_node
 
 
 
