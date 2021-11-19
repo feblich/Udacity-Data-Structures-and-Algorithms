@@ -190,7 +190,9 @@ def shortest_path(roads, intersections, start, goal):
 
     return cheapest_path.node_list
 
-start = 8
-goal  = 24
-path = shortest_path(roads, intersections, start, goal)
-print(path)
+if __name__ == "__main__":
+
+    start = 8
+    goal = 24
+    path = shortest_path(roads, intersections, start, goal)
+    print(path)
