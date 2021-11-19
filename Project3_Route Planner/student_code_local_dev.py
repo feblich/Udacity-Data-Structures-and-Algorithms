@@ -124,3 +124,9 @@ if __name__ == "__main__":
     goal = 24
     path = shortest_path(roads, start, goal)
     print(path)
+
+
+# References:
+# A* algorithm lecture from Udacity
+# https://www.geeksforgeeks.org/priority-queue-in-python/
+# https://en.wikipedia.org/wiki/A*_search_algorithm

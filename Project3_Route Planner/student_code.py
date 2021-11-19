@@ -113,3 +113,9 @@ def shortest_path(_map, start, goal):
         cheapest_path.prev_frontier_node = cheapest_path.frontier_node
 
     return cheapest_path.node_list
+
+
+# References:
+# A* algorithm lecture from Udacity
+# https://www.geeksforgeeks.org/priority-queue-in-python/
+# https://en.wikipedia.org/wiki/A*_search_algorithm
