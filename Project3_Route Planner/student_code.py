@@ -1,6 +1,16 @@
 from math import sqrt
 import copy
 
+"""
+Path object is an individual path between nodes (intersections). It captures attributes of a path such as nodes in
+the path, current g and f costs, the goal that it marches towards, etc. It would also update f and g scores whenever a 
+node is inserted or popped out of the path object. 
+Starting from a node, Path objects are created for all neighbors of the node, starting from the node and are inserted
+into a PriorityQueue object. After all paths originated from a given node are inserted into the PriorityQueue in the form of
+Path objects, the one with the lowest f cost will be popped out of the PriorityQueue and will be expanded, this will
+continue until we reach the goal.
+
+"""
 class Path(object):
     def __init__(self, node_list=None, _map=None, g_cost=0, f_cost=0, goal_node=None):
         self.node_list = node_list
