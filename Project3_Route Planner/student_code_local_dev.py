@@ -166,10 +166,14 @@ def euclidean_distance(start_coordinate, goal_coordinate):
 
 
 
-def shortest_path(roads, intersections, start, goal):
+def shortest_path(roads, start, goal):
 
     all_paths = PriorityQueue()
     curr_node = start
+
+    # handle edge case where start and goal are the same
+    if start == goal:
+        return [start]
 
     while curr_node != goal:
         for node in roads[curr_node]:
@@ -194,5 +198,5 @@ if __name__ == "__main__":
 
     start = 8
     goal = 24
-    path = shortest_path(roads, intersections, start, goal)
+    path = shortest_path(roads, start, goal)
     print(path)
