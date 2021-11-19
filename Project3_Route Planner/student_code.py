@@ -9,7 +9,6 @@ Starting from a node, Path objects are created for all neighbors of the node, st
 into a PriorityQueue object. After all paths originated from a given node are inserted into the PriorityQueue in the form of
 Path objects, the one with the lowest f cost will be popped out of the PriorityQueue and will be expanded, this will
 continue until we reach the goal.
-
 """
 class Path(object):
     def __init__(self, node_list=None, _map=None, g_cost=0, f_cost=0, goal_node=None):
